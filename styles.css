@@ -1,0 +1,428 @@
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Orbitron', sans-serif;
+    color: #00ffea;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+    animation: fadeIn 1s ease-in-out;
+    position: relative;
+}
+
+/* Blur effect using pseudo-element */
+body::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: inherit;
+    filter: blur(2px);
+    z-index: -1;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideIn {
+    from { transform: translateY(-20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+@keyframes glow {
+    0% { box-shadow: 0 0 5px #00ffea; }
+    50% { box-shadow: 0 0 15px #00ffea; }
+    100% { box-shadow: 0 0 5px #00ffea; }
+}
+
+/* Header */
+header {
+    width: 100%;
+    background: rgba(26, 26, 26, 0.9);
+    padding: 15px 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 15px rgba(0, 255, 234, 0.2);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    animation: slideIn 0.5s ease-out;
+}
+
+.logo img {
+    width: 100px;
+    height: 100px;
+    cursor: pointer;
+    transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.logo img:hover {
+    transform: rotate(360deg) scale(1.2);
+    filter: drop-shadow(0 0 10px #00ffea);
+}
+
+.about {
+    font-size: 1.2rem;
+    position: relative;
+    cursor: pointer;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.about:hover {
+    color: #00ccff;
+    transform: translateY(-2px);
+}
+
+.about .intro {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background: linear-gradient(135deg, #2a2a2a, #1a1a1a);
+    padding: 15px 20px;
+    border-radius: 12px;
+    border: 2px solid #00ffea;
+    font-size: 0.9rem;
+    width: 280px;
+    box-shadow: 0 8px 25px rgba(0, 255, 234, 0.4);
+    animation: slideIn 0.5s ease-out, glow 3s infinite;
+    z-index: 20;
+    color: #00ffea;
+}
+
+.about:hover .intro {
+    display: block;
+}
+
+.intro h3 {
+    font-size: 1.2rem;
+    color: #00ffea;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-shadow: 0 0 5px rgba(0, 255, 234, 0.5);
+}
+
+.intro p {
+    margin-bottom: 8px;
+    line-height: 1.4;
+    font-weight: 300;
+}
+
+.intro strong {
+    color: #00ccff;
+    font-weight: 500;
+}
+
+/* Main Content */
+main {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.chatbot {
+    width: clamp(300px, 90%, 450px);
+    height: clamp(50vh, 70vh, 700px);
+    background: rgba(26, 26, 26, 0.85);
+    border: 2px solid #00ffea;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 0 20px rgba(0, 255, 234, 0.4);
+    animation: slideIn 0.7s ease-out;
+    transition: transform 0.3s ease;
+    position: relative;
+}
+
+.chatbot:hover {
+    transform: translateY(-5px);
+}
+
+.chatbot-header {
+    background: linear-gradient(90deg, #00ffea, #00ccff);
+    color: #0a0a0a;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 13px 13px 0 0;
+}
+
+.minimize-btn {
+    background: none;
+    border: none;
+    color: #0a0a0a;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.minimize-btn:hover {
+    transform: scale(1.2);
+}
+
+.chat-area {
+    flex: 1;
+    padding: 15px;
+    overflow-y: auto;
+    background: #1a1a1a;
+    display: flex;
+    flex-direction: column;
+    border-radius: 0 0 13px 13px;
+}
+
+.chat-message {
+    margin: 10px 0;
+    padding: 12px 16px;
+    border-radius: 15px;
+    max-width: 70%;
+    font-size: 1rem;
+    animation: fadeIn 0.5s ease-out;
+}
+
+.chat-message.bot {
+    background: rgba(0, 255, 234, 0.1);
+    color: #00ffea;
+    margin-left: 0;
+    position: relative;
+}
+
+.chat-message.bot::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -10px;
+    width: 0;
+    height: 0;
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+    border-right: 10px solid rgba(0, 255, 234, 0.1);
+}
+
+.chat-message.user {
+    background: #6a48ff;
+    color: #fff;
+    margin-left: auto;
+    margin-right: 0;
+    border-radius: 15px 0 15px 15px;
+}
+
+.input-area {
+    display: flex;
+    padding: 15px;
+    background: rgba(26, 26, 26, 0.9);
+    border-top: 1px solid #00ffea;
+}
+
+.input-area input {
+    flex: 1;
+    padding: 12px;
+    border: 1px solid #00ffea;
+    border-radius: 8px;
+    background: #0a0a0a;
+    color: #00ffea;
+    font-size: 1rem;
+    transition: box-shadow 0.3s ease;
+}
+
+.input-area input:focus {
+    outline: none;
+    box-shadow: 0 0 10px #00ffea;
+}
+
+.input-area button {
+    padding: 12px 25px;
+    margin-left: 10px;
+    background: #6a48ff;
+    color: #fff;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.input-area button:hover {
+    background: #5a38e5;
+    transform: scale(1.05);
+}
+
+/* Footer */
+footer {
+    width: 100%;
+    background: rgba(26, 26, 26, 0.9);
+    padding: 15px 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0 -4px 15px rgba(0, 255, 234, 0.2);
+    animation: slideIn 0.9s ease-out;
+    position: relative;
+}
+
+.footer-content {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.copyright {
+    font-size: 0.9rem;
+}
+
+.tagline {
+    font-size: 0.8rem;
+    color: #00ccff;
+    animation: pulse 2s infinite;
+}
+
+.social-links {
+    display: flex;
+    justify-content: center;
+}
+
+.social-links a {
+    margin: 0 15px;
+    color: #00ffea;
+    font-size: 1.5rem;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.social-links a:hover {
+    color: #00ccff;
+    transform: translateY(-3px);
+}
+
+.hidden {
+    display: none;
+}
+
+/* Responsive Design with Background Adjustments */
+@media (max-width: 768px) {
+    header {
+        padding: 10px 15px;
+    }
+
+    .logo img {
+        width: 40px;
+        height: 40px;
+    }
+
+    .about {
+        font-size: 1rem;
+    }
+
+    .about .intro {
+        width: 240px;
+        font-size: 0.8rem;
+        padding: 12px 16px;
+    }
+
+    .intro h3 {
+        font-size: 1rem;
+    }
+
+    .chatbot {
+        width: clamp(280px, 95%, 400px);
+        height: clamp(50vh, 60vh, 600px);
+    }
+
+    .chatbot-header {
+        padding: 10px;
+    }
+
+    .minimize-btn {
+        font-size: 1.2rem;
+    }
+
+    .input-area {
+        padding: 10px;
+    }
+
+    .input-area input {
+        padding: 10px;
+        font-size: 0.9rem;
+    }
+
+    .input-area button {
+        padding: 10px 20px;
+    }
+
+    footer {
+        padding: 10px 15px;
+    }
+
+    /* Reduce blur for tablets */
+    body::before {
+        filter: blur(5px);
+    }
+}
+
+@media (max-width: 480px) {
+    .logo img {
+        width: 35px;
+        height: 35px;
+    }
+
+    .about {
+        font-size: 0.9rem;
+    }
+
+    .about .intro {
+        width: 200px;
+        font-size: 0.7rem;
+        padding: 10px 14px;
+    }
+
+    .intro h3 {
+        font-size: 0.9rem;
+    }
+
+    .chatbot {
+        width: clamp(250px, 90%, 350px);
+        height: clamp(40vh, 55vh, 500px);
+    }
+
+    .chat-area {
+        padding: 10px;
+    }
+
+    .input-area input {
+        padding: 8px;
+        font-size: 0.85rem;
+    }
+
+    .input-area button {
+        padding: 8px 15px;
+    }
+
+    /* Further reduce blur and adjust background for phones */
+    body::before {
+        filter: blur(3px);
+    }
+
+    /* Optional: Adjust background position for smaller screens */
+    body {
+        background-position: center top;
+    }
+}
